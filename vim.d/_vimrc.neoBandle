@@ -1,0 +1,105 @@
+"--------------------------------------------------------------------------
+" NeoBundle 設定
+"--------------------------------------------------------------------------
+set nocompatible               " Be iMproved
+filetype off                   " Required!
+
+set rtp+=~/dotfiles/neobundle.vim/
+if has('vim_starting')
+  set runtimepath+=~/dotfiles/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/'))
+endif
+
+
+filetype plugin indent on     " Required!
+
+" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+        \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+  "finish
+endif
+
+"--------------------------------------------------------------------------
+" NeoBundleで取得するもの
+"--------------------------------------------------------------------------
+
+" ツリー型エクスプローラ
+NeoBundle 'The-NERD-tree'
+
+" Alignツール
+NeoBundle 'h1mesuke/vim-alignta.git'
+set ambiwidth=double
+xnoremap <silent> a: :Alignta  01 :<CR>
+xnoremap al :Alignta<Space>
+
+" 文字エンコーディング判定
+NeoBundle 'banyan/recognize_charcode.vim'
+
+" カーソル移動を加速する
+NeoBundle 'rhysd/accelerated-jk.git'
+let g:accelerated_jk_acceleration_table = [10,5,3]
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+" fを賢くする
+NeoBundle 'rhysd/clever-f.vim'
+
+
+" ------------------------------
+" ユナイト
+" ------------------------------
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Sixeight/unite-grep.git'
+NeoBundle 'thinca/vim-qfreplace.git'
+
+" ------------------------------
+" 補完
+" ------------------------------
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'tsukkee/unite-tag.git'
+autocmd BufEnter *
+\   if empty(&buftype)
+\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+\|  endif
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'honza/snipmate-snippets.git'
+" 英語の補完を行う
+NeoBundle 'ujihisa/neco-look.git'
+
+" ------------------------------
+" Vim Shell
+" ------------------------------
+NeoBundle 'Shougo/vimshell.git'
+nnoremap ,vs :VimShell<CR>
+
+" ------------------------------
+" ヤンク
+" ------------------------------
+" ヤンクを辿れるようにする
+"NeoBundle "YankRing.vim"
+let g:yankring_manual_clipboard_check = 0
+let g:yankring_max_history = 30
+let g:yankring_max_display = 70
+" Yankの履歴参照
+nmap ,y ;YRShow<CR>
+
+"------------------------------------
+" 開発
+"------------------------------------
+NeoBundle 'othree/html5.vim.git'
+
+" -- でメソッドチェーン整形
+NeoBundle 'c9s/cascading.vim'
+
+"------------------------------------
+" クリップボード
+"------------------------------------
+" tmuxやscreenでもヤンクをクリップボードへコピー
+NeoBundle 'kana/vim-fakeclip.git'
+
+
+" sudo.vim
+NeoBundle "sudo.vim"
